@@ -8,3 +8,15 @@ function getInputField(getInputId) {
     amount.value = '';
     return amountValue;
 }
+
+//function for total amount (deposit and withdraw)
+
+function totalAmount(textFieldId, currentAmount) {
+    const previousTotalAmount = document.getElementById(textFieldId);
+    const previousAmount = previousTotalAmount.innerText;
+    const previousTotal = parseFloat(previousAmount);
+
+    const total = previousTotal + currentAmount;
+
+    previousTotalAmount.innerText = total;
+}
