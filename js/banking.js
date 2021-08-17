@@ -18,25 +18,29 @@ function totalAmount(textFieldId, currentAmount) {
     const previousAmount = previousTotalAmount.innerText;
     const previousTotal = parseFloat(previousAmount);
 
-    const total = previousTotal + currentAmount;
-
-    previousTotalAmount.innerText = total;
+    previousTotalAmount.innerText = previousTotal + currentAmount;
 }
+//function get current balance
 
-
-//function for update balance 
-
-function updateBalance(depositAmount, isAdd) {
+function getCurrentBalance() {
     const previousBalance = document.getElementById('balance-total');
     const previousBalanceText = currentBalance.innerText;
     const balance = parseFloat(previousBalanceText);
 
+    return balance;
+}
 
-    if (isAdd) {
-        previousBalance.innerText = balance + depositAmount;
+//function for update balance 
+
+function updateBalance(depositAmount, isAdd) {
+    const currentBalance = document.getElementById('balance-total');
+
+    const balance = getCurrentBalance();
+    if (isAdd == true) {
+        currentBalance.innerText = balance + depositAmount;
     }
     else {
-        previousBalance.innerText = balance - depositAmount;
+        currentBalance.innerText = balance - depositAmount;
     }
 }
 
@@ -45,12 +49,18 @@ function updateBalance(depositAmount, isAdd) {
 
 document.getElementById('deposit-button').addEventListener('click', function () {
     const deposit = getInputField('deposit-input');
-    const previousAmount = document.getElementById('deposit-total');
-    const previousAmountText = previousAmount.innerText;
-    const previousDepositAmount = parseFloat(previousAmountText);
-    totalAmount(deposit, previousDepositAmount);
+
+    totalAmount('deposit-total', deposit);
+    updateBalance(deposit, true);
 });
 
 
 //Add event listener for withdraw amount 
+document.getElementById('withdraw-button').addEventListener('click', function () {
+    const withdraw = getInputField('withdraw-input');
+    totalAmount('withdraw-total', withdraw);
+    updateBalance(withdraw, false);
+});
+
+
 
